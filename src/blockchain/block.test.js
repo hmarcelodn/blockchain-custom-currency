@@ -27,9 +27,10 @@ describe('Block', () => {
 
     it('use static mine()', () => {
         const block = Block.mine(previousBlock, data);
+        const { difficulty } = block;
 
         expect(block.hash.length).toEqual(64);
-        expect(block.hash.substring(0, DIFFICULTY)).toEqual('0'.repeat(DIFFICULTY));
+        expect(block.hash.substring(0, difficulty)).toEqual('0'.repeat(difficulty));
         expect(block.previousHash).toEqual(previousBlock.hash);
         expect(block.data).toEqual(data);
     });

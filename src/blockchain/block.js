@@ -1,6 +1,7 @@
 import { SHA256 } from 'crypto-js';
+import adjustDifficulty from './modules/adjustDifficulty';
 
-const DIFFICULTY = 2;
+const DIFFICULTY = 3;
 
 export class Block {
     constructor(timestamp, previousHash, hash, data, nonce, difficulty) {
@@ -14,7 +15,7 @@ export class Block {
 
     static get genesis() {
         const timestamp = (new Date(2000, 0, 1)).getTime();
-        return new this(timestamp, undefined, 'g3n3s1s-h4Sh', 'd4t4');
+        return new this(timestamp, undefined, 'g3n3s1s-h4Sh', 'd4t4', 0, DIFFICULTY);
     }
 
     static mine(previousBlock, data) {
@@ -22,13 +23,14 @@ export class Block {
         let hash;
         let nonce = 0;
         let timestamp;
-        let difficulty = DIFFICULTY;
+        let { difficulty } = previousBlock;
 
         do {
             timestamp = Date.now();
             nonce += 1;
+            difficulty = adjustDifficulty(previousBlock, timestamp);
             hash = Block.hash(timestamp, previousHash, data, nonce, difficulty);
-        } while(hash.substring(0, DIFFICULTY) !== '0'.repeat(DIFFICULTY));
+        } while(hash.substring(0, difficulty) !== '0'.repeat(difficulty));
 
         return new this(timestamp, previousHash, hash, data, nonce, difficulty);
     }
