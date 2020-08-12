@@ -41,4 +41,23 @@ describe('Transaction', () => {
             }).toThrowError();
         });
     });
+
+    it('inputs the sender address of the wallet`', () => {
+        expect(transaction.input.amount).toEqual(wallet.balance);
+        expect(transaction.input.address).toEqual(wallet.publicKey);
+    });
+
+    it('inputs has a signature using the wallet', () => {
+        expect(typeof transaction.input.signature).toEqual('object');
+        expect(transaction.input.signature).toEqual(wallet.sign(transaction.outputs));
+    });
+
+    it('validate a valid transaction', () => {
+        expect(Transaction.verify(transaction)).toBe(true);
+    });
+
+    it('invalidates a corrupt transaction', () => {
+        transaction.outputs[0].amount = 500;
+        expect(Transaction.verify(transaction)).toBe(false);
+    });
 });
