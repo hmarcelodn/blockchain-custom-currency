@@ -1,6 +1,7 @@
 import { v1 as uuidV1 } from 'uuid';
 
 import { elliptic } from '../../modules';
+const REWARD = 1;
 
 export class Transaction {
     constructor() {
@@ -39,6 +40,10 @@ export class Transaction {
         };
     }
 
+    static reward(minerWallet, blockchainWallet) {
+        return Transaction.create(blockchainWallet, minerWallet.publicKey, REWARD);
+    }
+
     update(senderWallet, recipientAddress, amount) {
         const senderOutput = this.outputs.find((output) => output.address === senderWallet.publicKey);
 
@@ -51,3 +56,5 @@ export class Transaction {
         return this;
     }
 }
+
+export { REWARD }
