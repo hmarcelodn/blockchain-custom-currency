@@ -1,4 +1,4 @@
-import { elliptic, hash } from '../../modules';
+import { elliptic, hash } from '../modules';
 import { Transaction } from './transaction';
 
 const INITIAL_BALANCE = 100;

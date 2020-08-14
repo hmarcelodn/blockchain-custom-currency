@@ -1,6 +1,6 @@
 import { v1 as uuidV1 } from 'uuid';
 
-import { elliptic } from '../../modules';
+import { elliptic } from '../modules';
 const REWARD = 1;
 
 export class Transaction {

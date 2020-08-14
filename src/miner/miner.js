@@ -1,4 +1,4 @@
-import { Transaction, blockchainWallet } from '../blockchain/wallet';
+import { Transaction, blockchainWallet } from '../wallet';
 import { MESSAGE } from '../service/p2p';
 
 export class Miner {

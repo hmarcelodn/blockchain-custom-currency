@@ -1,4 +1,4 @@
-import { Transaction } from "./wallet";
+import { Transaction } from "../wallet";
 
 export class MemoryPool {
     constructor() {

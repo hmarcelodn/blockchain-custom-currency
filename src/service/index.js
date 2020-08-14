@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 import Blockchain, { Block } from '../blockchain';
-import { Wallet } from '../blockchain/wallet';
+import { Wallet } from '../wallet';
 import { P2PService, MESSAGE } from './p2p';
 import { Miner } from '../miner';
 

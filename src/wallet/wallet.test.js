@@ -1,5 +1,5 @@
 import { INITIAL_BALANCE, Wallet } from './wallet';
-import { Blockchain } from '../blockchain';
+import { Blockchain } from '../blockchain/blockchain';
 
 describe('Wallet', () => {
 

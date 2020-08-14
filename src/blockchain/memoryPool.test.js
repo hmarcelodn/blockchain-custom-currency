@@ -1,5 +1,5 @@
 import { MemoryPool } from './memoryPool';
-import { Wallet, Transaction } from './wallet';
+import { Wallet, Transaction } from '../wallet';
 
 describe('MemoryPool', () => {
     let memoryPool;

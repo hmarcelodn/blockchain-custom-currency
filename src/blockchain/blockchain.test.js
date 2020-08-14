@@ -1,6 +1,6 @@
 import { Blockchain } from './blockchain';
 import { Block } from './block';
-import validator from './modules/validator';
+// import validator from './modules/validator';
 
 describe('Blockchain', () => {
     let blockchain;
