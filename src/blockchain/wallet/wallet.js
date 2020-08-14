@@ -25,7 +25,8 @@ export class Wallet {
     }
 
     createTransaction(recipientAddress, amount) {
-        const { balance, blockchain: { memoryPool } } = this;
+        const { blockchain: { memoryPool } } = this;
+        const balance = this.calculateBalance();
 
         if (amount > balance) throw Error(`Amount: ${amount} exceeds current balance`);
         let tx = memoryPool.find(this.publicKey);
@@ -38,6 +39,36 @@ export class Wallet {
         }
 
         return tx;
+    }
+
+    calculateBalance() {
+        const { blockchain: { blocks = [], publicKey } } = this;
+        let { balance } = this;
+        const txs = [];
+
+        blocks.forEach(({ data = [] }) => {
+            if (Array.isArray(data)) data.forEach((tx) => txs.push);
+        });
+
+        const walletInputTxs = txs.filter((tx) => tx.input.address === publicKey);
+        let timestamp = 0;
+
+        if (walletInputTxs.length > 0) {
+            const recentInputTx = walletInputTxs.sort((a, b) => a.input.timestamp).pop();
+
+            balance = recentInputTx.outputs.find(({ address }) => address === publicKey).amount;
+            timestamp = recentInputTx.input.timestamp;
+        }
+
+        txs
+            .filter(({ input }) => input.timestamp > timestamp)
+            .forEach(({ outputs }) => {
+                outputs.find(({ address, amount }) => {
+                    if (address === publicKey ) balance += amount;
+                })
+            });
+
+        return balance;
     }
 }
 
